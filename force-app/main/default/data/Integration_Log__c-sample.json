@@ -1,0 +1,40 @@
+{
+  "records": [
+    {
+      "attributes": { "type": "Integration_Log__c", "referenceId": "IntegrationLogRef1" },
+      "Name": "Sample Integration Log 1",
+      "Error_Message__c": "",
+      "Integration_Status__c": "Success",
+      "Processed_Time__c": "2026-05-26T12:34:56.000Z",
+      "Request_Body__c": "{\"id\":123}",
+      "Request_Type__c": "POST",
+      "Response_Body__c": "{\"status\":\"ok\"}",
+      "Retry_Count__c": 0,
+      "Status_Code__c": 200
+    },
+    {
+      "attributes": { "type": "Integration_Log__c", "referenceId": "IntegrationLogRef2" },
+      "Name": "Sample Integration Log 2",
+      "Error_Message__c": "Timeout on first attempt",
+      "Integration_Status__c": "Retrying",
+      "Processed_Time__c": "2026-05-25T09:15:00.000Z",
+      "Request_Body__c": "{\"action\":\"create\"}",
+      "Request_Type__c": "PUT",
+      "Response_Body__c": "",
+      "Retry_Count__c": 1,
+      "Status_Code__c": 504
+    },
+    {
+      "attributes": { "type": "Integration_Log__c", "referenceId": "IntegrationLogRef3" },
+      "Name": "Sample Integration Log 3",
+      "Error_Message__c": "Invalid payload",
+      "Integration_Status__c": "Failed",
+      "Processed_Time__c": "2026-05-24T17:00:00.000Z",
+      "Request_Body__c": "{\"user\":\"abc\"}",
+      "Request_Type__c": "POST",
+      "Response_Body__c": "{\"error\":\"bad request\"}",
+      "Retry_Count__c": 3,
+      "Status_Code__c": 400
+    }
+  ]
+}
