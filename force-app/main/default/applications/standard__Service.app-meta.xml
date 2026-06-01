@@ -13,4 +13,7 @@
     <tabs>standard-Solution</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
+    <tabs>Candidate__c</tabs>
+    <tabs>Job_Position__c</tabs>
+    <tabs>Job_Application__c</tabs>
 </CustomApplication>

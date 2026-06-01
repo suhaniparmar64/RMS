@@ -152,92 +152,13 @@
     <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <fields>
-        <fullName>Candidate__c</fullName>
-        <externalId>false</externalId>
-        <label>Candidate</label>
-        <referenceTo>Candidate__c</referenceTo>
-        <relationshipLabel>Candidate Skills</relationshipLabel>
-        <relationshipName>Candidate_Skills</relationshipName>
-        <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
-        <type>MasterDetail</type>
-    </fields>
-    <fields>
-        <fullName>Experience_Level__c</fullName>
-        <externalId>false</externalId>
-        <label>Experience Level</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-        <valueSet>
-            <restricted>true</restricted>
-            <valueSetDefinition>
-                <sorted>false</sorted>
-                <value>
-                    <fullName>Beginner</fullName>
-                    <default>false</default>
-                    <label>Beginner</label>
-                </value>
-                <value>
-                    <fullName>Intermediate</fullName>
-                    <default>false</default>
-                    <label>Intermediate</label>
-                </value>
-                <value>
-                    <fullName>Advanced</fullName>
-                    <default>false</default>
-                    <label>Advanced</label>
-                </value>
-                <value>
-                    <fullName>Expert</fullName>
-                    <default>false</default>
-                    <label>Expert</label>
-                </value>
-            </valueSetDefinition>
-        </valueSet>
-    </fields>
-    <fields>
-        <fullName>Skill__c</fullName>
-        <externalId>false</externalId>
-        <label>Skill</label>
-        <referenceTo>Skill__c</referenceTo>
-        <relationshipLabel>Candidate Skills</relationshipLabel>
-        <relationshipName>Candidate_Skills</relationshipName>
-        <relationshipOrder>1</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
-        <trackTrending>false</trackTrending>
-        <type>MasterDetail</type>
-    </fields>
-    <fields>
-        <fullName>Skill_Rating__c</fullName>
-        <externalId>false</externalId>
-        <label>Skill Rating</label>
-        <precision>3</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <trackTrending>false</trackTrending>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Years_Of_Experience__c</fullName>
-        <externalId>false</externalId>
-        <label>Years of Experience</label>
-        <precision>5</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <trackTrending>false</trackTrending>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Candidate Skill</label>
     <nameField>
         <label>Candidate Skill Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Candidate Skills</pluralLabel>
+    <pluralLabel>Candidate Skill</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

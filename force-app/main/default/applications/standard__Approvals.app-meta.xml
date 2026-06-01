@@ -8,8 +8,20 @@
     <label>Approvals</label>
     <navType>Console</navType>
     <tabs>standard-ApprovalsHome</tabs>
+    <tabs>Candidate__c</tabs>
+    <tabs>Job_Position__c</tabs>
+    <tabs>Job_Application__c</tabs>
     <uiType>Lightning</uiType>
     <workspaceConfig>
+        <mappings>
+            <tab>Candidate__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Job_Application__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Job_Position__c</tab>
+        </mappings>
         <mappings>
             <tab>standard-ApprovalsHome</tab>
         </mappings>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Category --></label>
+    <name>Category__c</name>
+    <picklistValues>
+        <masterLabel>AI/ML</masterLabel>
+        <translation><!-- AI/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Administration</masterLabel>
+        <translation><!-- Administration --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Analytics</masterLabel>
+        <translation><!-- Analytics --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Automation</masterLabel>
+        <translation><!-- Automation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Backend</masterLabel>
+        <translation><!-- Backend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CRM</masterLabel>
+        <translation><!-- CRM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cloud</masterLabel>
+        <translation><!-- Cloud --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Data Engineering</masterLabel>
+        <translation><!-- Data Engineering --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Database</masterLabel>
+        <translation><!-- Database --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DevOps</masterLabel>
+        <translation><!-- DevOps --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ERP</masterLabel>
+        <translation><!-- ERP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Frontend</masterLabel>
+        <translation><!-- Frontend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Integration</masterLabel>
+        <translation><!-- Integration --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mobile Development</masterLabel>
+        <translation><!-- Mobile Development --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Networking</masterLabel>
+        <translation><!-- Networking --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Programming</masterLabel>
+        <translation><!-- Programming --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Project Management</masterLabel>
+        <translation><!-- Project Management --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Security</masterLabel>
+        <translation><!-- Security --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Testing</masterLabel>
+        <translation><!-- Testing --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UI/UX</masterLabel>
+        <translation><!-- UI/UX --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

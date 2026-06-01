@@ -12,3 +12,18 @@ package.xml
 **/__tests__/**
 
 node_modules/
+
+# Profiles (notoriously fragile on standard deployments)
+**/profiles/**
+
+# Standard Settings & Fragile Packages/Configurations
+**/settings/**
+**/installedPackages/**
+**/managedContentTypes/**
+**/entitlementProcesses/**
+**/objects/Problem/**
+**/objects/Case/**
+**/objects/CommSubscriptionChannelType/**
+**/objects/PaymentGroup/**
+**/appMenus/**
+**/permissionsets/sfdcInternalInt__*

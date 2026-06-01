@@ -7,4 +7,7 @@
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
     <tabs>standard-AppLauncher</tabs>
+    <tabs>Candidate__c</tabs>
+    <tabs>Job_Position__c</tabs>
+    <tabs>Job_Application__c</tabs>
 </CustomApplication>

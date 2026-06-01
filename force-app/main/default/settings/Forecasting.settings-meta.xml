@@ -251,6 +251,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -297,6 +301,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -464,6 +469,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -510,6 +519,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -681,6 +691,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -728,6 +742,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -895,6 +910,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -941,6 +960,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -1112,6 +1132,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -1159,6 +1183,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -1326,6 +1351,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -1372,6 +1401,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -1543,6 +1573,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -1590,6 +1624,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -1757,6 +1792,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -1803,6 +1842,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -1974,6 +2014,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -2021,6 +2065,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -2188,6 +2233,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -2234,6 +2283,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -2405,6 +2455,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -2452,6 +2506,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>
@@ -2619,6 +2674,10 @@
             <label>Tracking Number</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>PARTNER.NAME</field>
+            <label>Partner Account</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <label>Last Stage Change Date</label>
         </opportunityListFieldsLabelMappings>
@@ -2665,6 +2724,7 @@
             <field>00Ng500000GupLW</field>
             <field>00Ng500000GupLX</field>
             <field>00Ng500000GupLY</field>
+            <field>PARTNER.NAME</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
         </opportunityListFieldsUnselectedSettings>

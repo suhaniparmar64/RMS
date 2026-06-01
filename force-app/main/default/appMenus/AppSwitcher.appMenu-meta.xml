@@ -132,4 +132,12 @@
         <name>standard__MSJApp</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>Recruitment_Management_System</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>RMS_Integration</name>
+        <type>ExternalClientApplication</type>
+    </appMenuItems>
 </AppMenu>

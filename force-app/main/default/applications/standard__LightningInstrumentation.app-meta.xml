@@ -8,5 +8,8 @@
     <label>LightningInstrumentation</label>
     <navType>Standard</navType>
     <tabs>standard-LightningInstrumentation</tabs>
+    <tabs>Candidate__c</tabs>
+    <tabs>Job_Position__c</tabs>
+    <tabs>Job_Application__c</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>

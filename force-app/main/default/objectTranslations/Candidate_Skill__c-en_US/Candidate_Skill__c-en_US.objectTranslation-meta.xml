@@ -6,7 +6,7 @@
     </caseValues>
     <caseValues>
         <plural>true</plural>
-        <value>Candidate Skills</value>
+        <value>Candidate Skill</value>
     </caseValues>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

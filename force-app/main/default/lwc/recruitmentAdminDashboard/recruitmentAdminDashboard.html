@@ -1,0 +1,404 @@
+<template>
+    <!-- Custom Style Sheet Overlay for HSL styling and animations -->
+    <div class="portal-container slds-p-around_medium">
+        <!-- Header -->
+        <header class="portal-header slds-m-bottom_large">
+            <div class="slds-grid slds-grid_vertical-align-center slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                    <h1 class="slds-text-heading_large font-header">RMS Recruiter Dashboard</h1>
+                    <p class="slds-text-body_regular slds-m-top_xx-small text-subtitle">Manage open job applications, prioritize candidates, and schedule interviews.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <div class="slds-tabs_default slds-m-bottom_large card-premium slds-p-horizontal_medium slds-p-vertical_small">
+            <ul class="slds-tabs_default__nav" role="tablist">
+                <li class={applicationsTabClass} title="Applications" role="presentation">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="0" onclick={setActiveTabApplications}>Applications Pipeline</a>
+                </li>
+                <li class={jobsTabClass} title="Job Manager" role="presentation">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" onclick={setActiveTabJobs}>Post a New Job</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Tab 1 Content: Applications Pipeline -->
+        <template if:true={isApplicationsTabActive}>
+            <div class="animation-fade-in">
+                <!-- Search and Stats Bar -->
+                <div class="search-panel slds-m-bottom_large slds-p-around_medium card-premium">
+                    <div class="slds-grid slds-gutters slds-wrap slds-grid_vertical-align-center">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-4 slds-m-bottom_small slds-medium-m-bottom_none">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                    <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_left">
+                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
+                                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#search"></use>
+                                        </svg>
+                                    </span>
+                                    <input 
+                                        type="text" 
+                                        class="slds-input search-input" 
+                                        placeholder="Search by Candidate Name, Job Title, or Status..." 
+                                        value={searchKey}
+                                        oninput={handleSearchChange}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 text-right">
+                            <span class="slds-badge badge-premium">{filteredAppsCount} Applications Found</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applications List/Table -->
+                <template if:true={hasApplications}>
+                    <div class="card-premium slds-p-around_medium scrollable-table-container">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered premium-table">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate label-table-header">Candidate</div></th>
+                                    <th scope="col"><div class="slds-truncate label-table-header">Applied For</div></th>
+                                    <th scope="col"><div class="slds-truncate label-table-header">Experience / Notice</div></th>
+                                    <th scope="col"><div class="slds-truncate label-table-header">AI Match Score</div></th>
+                                    <th scope="col"><div class="slds-truncate label-table-header">Status</div></th>
+                                    <th scope="col" class="text-center"><div class="slds-truncate label-table-header">Actions</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={filteredApplications} for:item="app">
+                                    <tr key={app.id} class="slds-hint-parent">
+                                        <td>
+                                            <div class="slds-truncate font-bold text-main">{app.candidateName}</div>
+                                            <div class="slds-truncate text-muted font-size-xs">{app.candidateEmail}</div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate font-bold text-main">{app.jobTitle}</div>
+                                            <div class="slds-truncate text-muted font-size-xs">{app.jobCode} • {app.jobLocation}</div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate text-main">{app.candidateExperience} Years Exp</div>
+                                            <div class="slds-truncate text-muted font-size-xs">Notice: {app.candidateNotice}</div>
+                                        </td>
+                                        <td>
+                                            <div class={app.matchScoreClass}>
+                                                {app.formattedScore}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <select 
+                                                data-id={app.id} 
+                                                class="slds-select select-table-premium" 
+                                                onchange={handleStatusChange}
+                                            >
+                                                <template for:each={app.statusOptions} for:item="opt">
+                                                    <option 
+                                                        key={opt.value} 
+                                                        value={opt.value} 
+                                                        selected={opt.isSelected}
+                                                    >{opt.label}</option>
+                                                </template>
+                                            </select>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="action-buttons-group">
+                                                <button 
+                                                    class="slds-button button-premium-outline btn-table-action slds-m-right_xx-small" 
+                                                    title="View Profile Details"
+                                                    data-id={app.id}
+                                                    onclick={handleViewProfile}
+                                                >View Profile</button>
+                                                <button 
+                                                    class="slds-button button-premium btn-table-action" 
+                                                    title="Schedule Interview"
+                                                    data-id={app.id}
+                                                    onclick={handleOpenInterviewModal}
+                                                    disabled={app.isInterviewDisabled}
+                                                >Schedule</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+
+                <!-- Empty State Applications -->
+                <template if:false={hasApplications}>
+                    <div class="empty-state card-premium slds-p-around_xx-large text-center">
+                        <svg class="slds-icon slds-icon_large slds-icon-text-default slds-m-bottom_medium" aria-hidden="true">
+                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#sentiment_neutral"></use>
+                        </svg>
+                        <h2 class="slds-text-heading_medium">No Applications Found</h2>
+                        <p class="slds-m-top_small text-subtitle">No job applications are currently submitted or match your filters.</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- Tab 2 Content: Post a New Job -->
+        <template if:true={isJobsTabActive}>
+            <div class="card-premium slds-p-around_large animation-fade-in max-width-form">
+                <h2 class="section-title slds-m-bottom_medium">Post a New Job Listing</h2>
+                
+                <!-- Custom Alert Message -->
+                <template if:true={jobAlert}>
+                    <div class={jobAlertClass} role="alert">
+                        <h2>{jobAlertMessage}</h2>
+                    </div>
+                </template>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <!-- Job Title -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3 slds-m-bottom_medium">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label label-premium" for="jobTitleInput">Job Title <span class="required-star">*</span></label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="jobTitleInput" data-id="jobTitleInput" class="slds-input input-premium" placeholder="e.g. Senior Salesforce Developer" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience Required -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_medium">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label label-premium" for="jobExpInput">Experience Required (Years) <span class="required-star">*</span></label>
+                            <div class="slds-form-element__control">
+                                <input type="number" id="jobExpInput" data-id="jobExpInput" class="slds-input input-premium" min="0" max="30" placeholder="5" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Min Salary -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_medium">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label label-premium" for="jobMinSalaryInput">Minimum Salary ($) <span class="required-star">*</span></label>
+                            <div class="slds-form-element__control">
+                                <input type="number" id="jobMinSalaryInput" data-id="jobMinSalaryInput" class="slds-input input-premium" min="0" placeholder="80000" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Max Salary -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_medium">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label label-premium" for="jobMaxSalaryInput">Maximum Salary ($) <span class="required-star">*</span></label>
+                            <div class="slds-form-element__control">
+                                <input type="number" id="jobMaxSalaryInput" data-id="jobMaxSalaryInput" class="slds-input input-premium" min="0" placeholder="120000" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_medium">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label label-premium" for="jobLocInput">Location <span class="required-star">*</span></label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="jobLocInput" data-id="jobLocInput" class="slds-input input-premium" placeholder="e.g. Remote / San Francisco, CA" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Openings -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_medium">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label label-premium" for="jobOpeningsInput">Number of Openings <span class="required-star">*</span></label>
+                            <div class="slds-form-element__control">
+                                <input type="number" id="jobOpeningsInput" data-id="jobOpeningsInput" class="slds-input input-premium" min="1" max="100" placeholder="2" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Required Skills -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3 slds-m-bottom_medium">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label label-premium" for="jobSkillsInput">Required Skills <span class="required-star">*</span> (comma separated)</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="jobSkillsInput" data-id="jobSkillsInput" class="slds-input input-premium" placeholder="e.g. Apex, LWC, Experience Cloud, JavaScript" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Description -->
+                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label label-premium" for="jobDescInput">Job Description <span class="required-star">*</span></label>
+                            <div class="slds-form-element__control">
+                                <textarea id="jobDescInput" data-id="jobDescInput" class="slds-textarea textarea-premium" rows="6" placeholder="Describe the role, responsibilities, and requirements..." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <button class="slds-button button-premium" onclick={handleJobSubmit} disabled={isCreatingJob}>
+                        <template if:true={isCreatingJob}>
+                            <div class="spinner-small slds-m-right_small"></div>Saving...
+                        </template>
+                        <template if:false={isCreatingJob}>
+                            Create Job Position
+                        </template>
+                    </button>
+                </div>
+            </div>
+        </template>
+
+        <!-- View Profile Details Modal -->
+        <template if:true={isProfileModalOpen}>
+            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open premium-modal">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header modal-header-premium">
+                        <button class="slds-button slds-button_icon slds-modal__close close-button-premium" onclick={closeProfileModal}>
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#close"></use>
+                            </svg>
+                        </button>
+                        <h2 class="slds-text-heading_medium font-header">Candidate Profile Detail</h2>
+                        <p class="slds-text-title_caps slds-m-top_xxx-small text-subtitle">{selectedApp.candidateName}</p>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_large modal-body-premium">
+                        <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                                <div class="label-premium">Email Address</div>
+                                <div class="text-main font-bold">{selectedApp.candidateEmail}</div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                                <div class="label-premium">Phone Number</div>
+                                <div class="text-main font-bold">{selectedApp.candidatePhone}</div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                                <div class="label-premium">LinkedIn Profile</div>
+                                <div class="text-main font-bold">
+                                    <template if:true={selectedApp.candidateLinkedin}>
+                                        <a href={selectedApp.candidateLinkedin} target="_blank" rel="noreferrer" class="link-premium">{selectedApp.candidateLinkedin}</a>
+                                    </template>
+                                    <template if:false={selectedApp.candidateLinkedin}>
+                                        Not Provided
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                                <div class="label-premium">Experience & Notice</div>
+                                <div class="text-main font-bold">{selectedApp.candidateExperience} Years ({selectedApp.candidateNotice})</div>
+                            </div>
+                        </div>
+
+                        <div class="border-top slds-p-top_medium">
+                            <div class="label-premium">Skills Summary / Additional Details</div>
+                            <div class="text-main slds-m-top_xx-small note-box">{selectedApp.candidateSkillsSummary}</div>
+                        </div>
+                    </div>
+
+                    <footer class="slds-modal__footer modal-footer-premium">
+                        <button class="slds-button button-premium" onclick={closeProfileModal}>Close</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        <!-- Schedule Interview Modal -->
+        <template if:true={isInterviewModalOpen}>
+            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open premium-modal">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header modal-header-premium">
+                        <button class="slds-button slds-button_icon slds-modal__close close-button-premium" onclick={closeInterviewModal}>
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#close"></use>
+                            </svg>
+                        </button>
+                        <h2 class="slds-text-heading_medium font-header">Schedule Interview</h2>
+                        <p class="slds-text-title_caps slds-m-top_xxx-small text-subtitle">Candidate: {selectedApp.candidateName}</p>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_large modal-body-premium">
+                        <!-- Custom Alert Message -->
+                        <template if:true={interviewAlert}>
+                            <div class={interviewAlertClass} role="alert">
+                                <h2>{interviewAlertMessage}</h2>
+                            </div>
+                        </template>
+
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <!-- Scheduled Date/Time -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="intDateTime">Date & Time <span class="required-star">*</span></label>
+                                    <div class="slds-form-element__control">
+                                        <input type="datetime-local" id="intDateTime" data-id="intDateTime" class="slds-input input-premium" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Duration -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="intDuration">Duration <span class="required-star">*</span></label>
+                                    <div class="slds-form-element__control">
+                                        <select id="intDuration" data-id="intDuration" class="slds-select select-premium">
+                                            <option value="30" selected>30 Minutes</option>
+                                            <option value="45">45 Minutes</option>
+                                            <option value="60">60 Minutes</option>
+                                            <option value="90">90 Minutes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mode -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="intMode">Interview Mode <span class="required-star">*</span></label>
+                                    <div class="slds-form-element__control">
+                                        <select id="intMode" data-id="intMode" class="slds-select select-premium">
+                                            <option value="Online" selected>Virtual / Online</option>
+                                            <option value="In-Person">Face-to-Face / In-Person</option>
+                                            <option value="Phone">Telephonic</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Meeting Link -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="intLink">Meeting / Location Link</label>
+                                    <div class="slds-form-element__control">
+                                        <input type="url" id="intLink" data-id="intLink" class="slds-input input-premium" placeholder="https://meet.google.com/xyz" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Notes -->
+                            <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="intNotes">Interview Notes / Instructions</label>
+                                    <div class="slds-form-element__control">
+                                        <textarea id="intNotes" data-id="intNotes" class="slds-textarea textarea-premium" rows="3" placeholder="Add preparation notes or interviewer instructions..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer class="slds-modal__footer modal-footer-premium">
+                        <button class="slds-button button-premium-outline slds-m-right_small" onclick={closeInterviewModal} disabled={isSubmittingInterview}>Cancel</button>
+                        <button class="slds-button button-premium" onclick={handleInterviewSubmit} disabled={isSubmittingInterview}>
+                            <template if:true={isSubmittingInterview}>
+                                <div class="spinner-small slds-m-right_small"></div>Scheduling...
+                            </template>
+                            <template if:false={isSubmittingInterview}>
+                                Schedule & Notify
+                            </template>
+                        </button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </div>
+</template>

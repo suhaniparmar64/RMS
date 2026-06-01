@@ -1,0 +1,513 @@
+<template>
+    <!-- Custom Style Sheet Overlay for HSL styling and animations -->
+    <div class="portal-container slds-p-around_medium">
+        <!-- Hero Header -->
+        <header class="portal-header slds-m-bottom_large">
+            <div class="slds-grid slds-grid_vertical-align-center slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                    <h1 class="slds-text-heading_large font-header">RMS Career Portal</h1>
+                    <p class="slds-text-body_regular slds-m-top_xx-small text-subtitle">Find your next opportunity and join our team.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <div class="slds-tabs_default slds-m-bottom_large card-premium slds-p-horizontal_medium slds-p-vertical_small">
+            <ul class="slds-tabs_default__nav" role="tablist">
+                <li class={jobsTabClass} title="Explore Jobs" role="presentation">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="0" onclick={setActiveTabJobs}>Explore Jobs</a>
+                </li>
+                <li class={profileTabClass} title="My Applications & Profile" role="presentation">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" onclick={setActiveTabProfile}>My Profile & Applications</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Tab 1: Explore Jobs Content -->
+        <template if:true={isJobsTabActive}>
+            <!-- Search and Filter Panel -->
+            <div class="search-panel slds-m-bottom_large slds-p-around_medium card-premium animation-fade-in">
+                <div class="slds-grid slds-gutters slds-wrap slds-grid_vertical-align-center">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-4 slds-m-bottom_small slds-medium-m-bottom_none">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_left">
+                                    <svg class="slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
+                                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#search"></use>
+                                    </svg>
+                                </span>
+                                <input 
+                                    type="text" 
+                                    class="slds-input search-input" 
+                                    placeholder="Search by Job Title, Location, or Skills..." 
+                                    value={searchKey}
+                                    oninput={handleSearchChange}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 text-right">
+                        <span class="slds-badge badge-premium">{filteredJobsCount} Available Positions</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Area: Split Screen Grid -->
+            <template if:true={hasJobs}>
+                <div class="slds-grid slds-gutters slds-wrap animation-fade-in">
+                    <!-- Left Column: Jobs List -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-m-bottom_medium slds-medium-m-bottom_none scrollable-list">
+                        <div class="slds-grid slds-grid_vertical">
+                            <template for:each={filteredJobs} for:item="job">
+                                <div 
+                                    key={job.Id} 
+                                    class={job.cardClass}
+                                    onclick={handleJobSelect} 
+                                    data-id={job.Id}
+                                >
+                                    <div class="slds-grid slds-grid_vertical-align-center slds-m-bottom_small">
+                                        <div class="logo-avatar slds-m-right_small">{job.logo}</div>
+                                        <div>
+                                            <h2 class="job-card-title">{job.Name}</h2>
+                                            <p class="job-card-subtitle">{job.Location__c} • {job.Experience_Required__c}+ Years Exp</p>
+                                        </div>
+                                    </div>
+                                    <div class="slds-m-bottom_small">
+                                        <span class="slds-badge badge-salary">{job.salaryRange}</span>
+                                    </div>
+                                    <div class="skills-container">
+                                        <template for:each={job.skillsList} for:item="skill">
+                                            <span key={skill} class="skill-tag">{skill}</span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Job Detailed Description View -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12">
+                        <template if:true={selectedJob}>
+                            <div class="detail-panel card-premium slds-p-around_large animation-fade-in">
+                                <div class="slds-grid slds-grid_align-spread slds-wrap slds-m-bottom_large border-bottom slds-p-bottom_medium">
+                                    <div class="slds-m-bottom_medium slds-medium-m-bottom_none">
+                                        <div class="slds-media slds-media_center">
+                                            <div class="slds-media__figure">
+                                                <div class="logo-avatar logo-avatar-large">{selectedJob.logo}</div>
+                                            </div>
+                                            <div class="slds-media__body">
+                                                <h1 class="job-detail-title">{selectedJob.Name}</h1>
+                                                <p class="job-detail-meta">{selectedJob.Location__c} • Posted Date: {selectedJob.Posted_Date__c}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="slds-button button-premium" onclick={openApplyModal}>Apply Now</button>
+                                    </div>
+                                </div>
+
+                                <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_large">
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                                        <div class="meta-card">
+                                            <div class="meta-label">Salary Range</div>
+                                            <div class="meta-value">{selectedJob.salaryRange}</div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                                        <div class="meta-card">
+                                            <div class="meta-label">Experience Required</div>
+                                            <div class="meta-value">{selectedJob.Experience_Required__c}+ Years</div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                                        <div class="meta-card">
+                                            <div class="meta-label">Open Positions</div>
+                                            <div class="meta-value">{selectedJob.Openings__c}</div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                                        <div class="meta-card">
+                                            <div class="meta-label">Job Code</div>
+                                            <div class="meta-value">{selectedJob.Job_Code__c}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slds-m-bottom_large">
+                                    <h3 class="section-title">Job Description</h3>
+                                    <p class="job-body-text">{selectedJob.Job_Description__c}</p>
+                                </div>
+
+                                <div class="slds-m-bottom_large">
+                                    <h3 class="section-title">Required Skills</h3>
+                                    <div class="slds-m-top_small">
+                                        <template for:each={selectedJob.skillsList} for:item="skill">
+                                            <span key={skill} class="skill-tag-large">{skill}</span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Empty State View -->
+            <template if:false={hasJobs}>
+                <div class="empty-state card-premium slds-p-around_xx-large text-center animation-fade-in">
+                    <svg class="slds-icon slds-icon_large slds-icon-text-default slds-m-bottom_medium" aria-hidden="true">
+                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#sentiment_neutral"></use>
+                    </svg>
+                    <h2 class="slds-text-heading_medium">No Openings Found</h2>
+                    <p class="slds-m-top_small text-subtitle">We currently do not have any job listings matching your search criteria. Please check back later.</p>
+                </div>
+            </template>
+        </template>
+
+        <!-- Tab 2: Profile & Applications Content -->
+        <template if:true={isProfileTabActive}>
+            <div class="animation-fade-in">
+                <!-- If NOT Logged In -->
+                <template if:false={candidateProfile}>
+                    <div class="card-premium slds-p-around_xx-large max-width-login text-center slds-align-center">
+                        <div class="logo-avatar logo-avatar-large slds-m-bottom_medium slds-align-center">C</div>
+                        <h2 class="slds-text-heading_medium font-header">Access Your Candidate Portal</h2>
+                        <p class="slds-m-top_small text-subtitle slds-m-bottom_large">Enter your registered email to view your submitted applications, track recruitment statuses, and manage your profile.</p>
+                        
+                        <!-- Verify Alert -->
+                        <template if:true={verifyAlert}>
+                            <div class={verifyAlertClass} role="alert">
+                                <h2>{verifyAlertMessage}</h2>
+                            </div>
+                        </template>
+
+                        <div class="slds-form-element slds-m-bottom_medium max-width-email-input slds-align-center">
+                            <label class="slds-form-element__label label-premium" for="verifyEmailInput">Email Address</label>
+                            <div class="slds-form-element__control">
+                                <input type="email" id="verifyEmailInput" data-id="verifyEmailInput" class="slds-input input-premium text-center" placeholder="johndoe@example.com" required />
+                            </div>
+                        </div>
+                        <button class="slds-button button-premium" onclick={handleVerifyEmail} disabled={isVerifying}>
+                            <template if:true={isVerifying}>
+                                <div class="spinner-small slds-m-right_small"></div>Verifying...
+                            </template>
+                            <template if:false={isVerifying}>
+                                Access Portal
+                            </template>
+                        </button>
+                    </div>
+                </template>
+
+                <!-- If Logged In -->
+                <template if:true={candidateProfile}>
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <!-- Left Panel: Profile Management Card -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-m-bottom_medium slds-medium-m-bottom_none">
+                            <div class="card-premium slds-p-around_large">
+                                <div class="slds-media slds-media_center slds-m-bottom_medium border-bottom slds-p-bottom_medium">
+                                    <div class="slds-media__figure">
+                                        <div class="logo-avatar logo-avatar-large">{profileInitials}</div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="job-detail-title">{candidateProfile.fullName}</h2>
+                                        <p class="text-subtitle font-size-xs">{candidateProfile.email}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Alert inside Profile Update -->
+                                <template if:true={profileAlert}>
+                                    <div class={profileAlertClass} role="alert">
+                                        <h2>{profileAlertMessage}</h2>
+                                    </div>
+                                </template>
+
+                                <!-- Profile Form Fields -->
+                                <div class="slds-form-element slds-m-bottom_small">
+                                    <label class="slds-form-element__label label-premium" for="editName">Full Name</label>
+                                    <input type="text" id="editName" data-id="editName" class="slds-input input-premium" value={candidateProfile.fullName} />
+                                </div>
+                                <div class="slds-form-element slds-m-bottom_small">
+                                    <label class="slds-form-element__label label-premium" for="editPhone">Phone Number</label>
+                                    <input type="tel" id="editPhone" data-id="editPhone" class="slds-input input-premium" value={candidateProfile.phone} />
+                                </div>
+                                <div class="slds-form-element slds-m-bottom_small">
+                                    <label class="slds-form-element__label label-premium" for="editLinkedin">LinkedIn Profile</label>
+                                    <input type="url" id="editLinkedin" data-id="editLinkedin" class="slds-input input-premium" value={candidateProfile.linkedinUrl} />
+                                </div>
+                                <div class="slds-form-element slds-m-bottom_small">
+                                    <label class="slds-form-element__label label-premium" for="editExp">Experience (Years)</label>
+                                    <input type="number" id="editExp" data-id="editExp" class="slds-input input-premium" value={candidateProfile.experienceYears} />
+                                </div>
+                                <div class="slds-form-element slds-m-bottom_small">
+                                    <label class="slds-form-element__label label-premium" for="editNotice">Notice Period</label>
+                                    <select id="editNotice" data-id="editNotice" class="slds-select select-premium">
+                                        <template for:each={noticeOptions} for:item="opt">
+                                            <option key={opt.value} value={opt.value} selected={opt.isSelected}>{opt.label}</option>
+                                        </template>
+                                    </select>
+                                </div>
+                                <div class="slds-form-element slds-m-bottom_medium">
+                                    <label class="slds-form-element__label label-premium" for="editSkills">Skills / Pitch Summary</label>
+                                    <textarea id="editSkills" data-id="editSkills" class="slds-textarea textarea-premium" rows="3">{candidateProfile.skillsSummary}</textarea>
+                                </div>
+
+                                <div class="slds-grid slds-grid_align-spread">
+                                    <button class="slds-button button-premium" onclick={handleUpdateProfile} disabled={isUpdatingProfile}>
+                                        <template if:true={isUpdatingProfile}>
+                                            <div class="spinner-small slds-m-right_small"></div>Saving...
+                                        </template>
+                                        <template if:false={isUpdatingProfile}>
+                                            Update Profile
+                                        </template>
+                                    </button>
+                                    <button class="slds-button button-premium-outline" onclick={handleLogout}>Log Out</button>
+                                </div>
+
+                                <!-- Resume Upload Section -->
+                                <div class="slds-m-top_large border-top slds-p-top_medium">
+                                    <h4 class="section-title slds-m-bottom_small">📄 Resume</h4>
+
+                                    <!-- Current Resume Status -->
+                                    <template if:true={candidateProfile.resumeUrl}>
+                                        <div class="resume-status-card slds-m-bottom_small">
+                                            <span class="resume-status-icon">✅</span>
+                                            <span class="resume-status-text">Resume on file</span>
+                                            <a href={candidateProfile.resumeUrl} target="_blank" class="resume-view-link">View</a>
+                                        </div>
+                                    </template>
+                                    <template if:false={candidateProfile.resumeUrl}>
+                                        <p class="text-subtitle font-size-xs slds-m-bottom_small">No resume uploaded yet.</p>
+                                    </template>
+
+                                    <!-- Upload New Resume -->
+                                    <div class="resume-upload-zone slds-m-top_small">
+                                        <input
+                                            type="file"
+                                            id="profileResume"
+                                            data-id="profileResume"
+                                            class="resume-file-input"
+                                            accept=".pdf,.doc,.docx"
+                                            onchange={handleProfileResumeChange}
+                                        />
+                                        <label for="profileResume" class="resume-upload-label">
+                                            <span class="resume-upload-icon">📤</span>
+                                            <span class="resume-upload-text">
+                                                <template if:true={profileResumeFileName}>{profileResumeFileName}</template>
+                                                <template if:false={profileResumeFileName}>Upload or Replace Resume</template>
+                                            </span>
+                                            <span class="resume-upload-hint">PDF, DOC, DOCX — max 5 MB</span>
+                                        </label>
+                                    </div>
+
+                                    <template if:true={profileResumeFileName}>
+                                        <button
+                                            class="slds-button button-premium slds-m-top_small full-width"
+                                            onclick={handleUploadProfileResume}
+                                            disabled={isUploadingResume}
+                                        >
+                                            <template if:true={isUploadingResume}>
+                                                <div class="spinner-small slds-m-right_small"></div>Uploading...
+                                            </template>
+                                            <template if:false={isUploadingResume}>
+                                                Save Resume to Profile
+                                            </template>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Application History & Status Step Trackers -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12">
+                            <div class="card-premium slds-p-around_large scrollable-list">
+                                <h3 class="section-title slds-m-bottom_medium">Your Submitted Applications</h3>
+
+                                <template if:true={hasApplications}>
+                                    <template for:each={candidateProfile.applications} for:item="app">
+                                        <div key={app.id} class="app-history-card slds-p-around_medium slds-m-bottom_medium card-premium">
+                                            <div class="slds-grid slds-grid_align-spread slds-wrap slds-m-bottom_medium">
+                                                <div>
+                                                    <h4 class="app-job-title">{app.jobTitle}</h4>
+                                                    <p class="text-subtitle font-size-xs">{app.jobCode} • {app.jobLocation} • Applied Date: {app.appliedDate}</p>
+                                                </div>
+                                                <div>
+                                                    <span class={app.statusClass}>{app.status}</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Step-by-Step Progress Tracker -->
+                                            <div class="progress-tracker-container slds-m-top_medium">
+                                                <div class="progress-line">
+                                                    <div class="progress-fill" style={app.progressFillStyle}></div>
+                                                </div>
+                                                <div class="progress-steps-row">
+                                                    <template for:each={app.steps} for:item="step">
+                                                        <div key={step.label} class={step.stepClass}>
+                                                            <div class="step-circle">{step.icon}</div>
+                                                            <div class="step-label">{step.label}</div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+
+                                <template if:false={hasApplications}>
+                                    <div class="empty-state text-center slds-p-around_large">
+                                        <p class="text-subtitle">You have not submitted any job applications yet.</p>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- Premium Application Form Modal -->
+        <template if:true={isApplyModalOpen}>
+            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open premium-modal">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header modal-header-premium">
+                        <button class="slds-button slds-button_icon slds-modal__close close-button-premium" onclick={closeApplyModal}>
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#close"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium font-header">Application Form</h2>
+                        <p class="slds-text-title_caps slds-m-top_xxx-small text-subtitle">Applying for: {selectedJob.Name}</p>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_large modal-body-premium">
+                        <!-- Custom Alert Message -->
+                        <template if:true={modalAlert}>
+                            <div class={modalAlertClass} role="alert">
+                                <h2>{modalAlertMessage}</h2>
+                            </div>
+                        </template>
+
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <!-- Full Name -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="candName">Full Name <span class="required-star">*</span></label>
+                                    <div class="slds-form-element__control">
+                                        <input type="text" id="candName" data-id="candName" class="slds-input input-premium" placeholder="John Doe" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="candEmail">Email Address <span class="required-star">*</span></label>
+                                    <div class="slds-form-element__control">
+                                        <input type="email" id="candEmail" data-id="candEmail" class="slds-input input-premium" placeholder="johndoe@example.com" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="candPhone">Phone Number <span class="required-star">*</span></label>
+                                    <div class="slds-form-element__control">
+                                        <input type="tel" id="candPhone" data-id="candPhone" class="slds-input input-premium" placeholder="123-456-7890" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- LinkedIn -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="candLinkedin">LinkedIn Profile URL</label>
+                                    <div class="slds-form-element__control">
+                                        <input type="url" id="candLinkedin" data-id="candLinkedin" class="slds-input input-premium" placeholder="https://linkedin.com/in/username" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Experience -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="candExp">Total Experience (Years) <span class="required-star">*</span></label>
+                                    <div class="slds-form-element__control">
+                                        <input type="number" id="candExp" data-id="candExp" class="slds-input input-premium" min="0" max="50" placeholder="3" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Notice Period -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="candNotice">Notice Period</label>
+                                    <div class="slds-form-element__control">
+                                        <select id="candNotice" data-id="candNotice" class="slds-select select-premium">
+                                            <option value="Immediate">Immediate / 1 Week</option>
+                                            <option value="15 Days">15 Days</option>
+                                            <option value="1 Month" selected>1 Month</option>
+                                            <option value="2 Months">2 Months</option>
+                                            <option value="3 Months">3 Months</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Resume Upload -->
+                            <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="candResume">Upload Resume (PDF / DOC)</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="resume-upload-zone">
+                                            <input
+                                                type="file"
+                                                id="candResume"
+                                                data-id="candResume"
+                                                class="resume-file-input"
+                                                accept=".pdf,.doc,.docx"
+                                                onchange={handleResumeFileChange}
+                                            />
+                                            <label for="candResume" class="resume-upload-label">
+                                                <span class="resume-upload-icon">📄</span>
+                                                <span data-id="resumeFileLabel" class="resume-upload-text">
+                                                    <template if:true={resumeFileName}>{resumeFileName}</template>
+                                                    <template if:false={resumeFileName}>Click to choose a file or drag &amp; drop here</template>
+                                                </span>
+                                                <span class="resume-upload-hint">PDF, DOC, DOCX — max 5 MB</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cover Letter -->
+                            <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label label-premium" for="candLetter">Brief Cover Letter / Pitch</label>
+                                    <div class="slds-form-element__control">
+                                        <textarea id="candLetter" data-id="candLetter" class="slds-textarea textarea-premium" rows="4" placeholder="Tell us why you are a great fit..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer class="slds-modal__footer modal-footer-premium">
+                        <button class="slds-button button-premium-outline slds-m-right_small" onclick={closeApplyModal} disabled={isSubmitting}>Cancel</button>
+                        <button class="slds-button button-premium" onclick={handleFormSubmit} disabled={isSubmitting}>
+                            <template if:true={isSubmitting}>
+                                <div class="spinner-small slds-m-right_small"></div>Submitting...
+                            </template>
+                            <template if:false={isSubmitting}>
+                                Submit Application
+                            </template>
+                        </button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </div>
+</template>

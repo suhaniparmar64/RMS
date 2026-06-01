@@ -21,9 +21,21 @@
     <tabs>standard-Feed</tabs>
     <tabs>standard-CollaborationGroup</tabs>
     <tabs>standard-File</tabs>
+    <tabs>Candidate__c</tabs>
+    <tabs>Job_Position__c</tabs>
+    <tabs>Job_Application__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>LightningSalesConsole_UtilityBar</utilityBar>
     <workspaceConfig>
+        <mappings>
+            <tab>Candidate__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Job_Application__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Job_Position__c</tab>
+        </mappings>
         <mappings>
             <tab>standard-Account</tab>
         </mappings>

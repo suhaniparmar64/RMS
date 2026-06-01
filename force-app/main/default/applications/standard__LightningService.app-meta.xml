@@ -18,9 +18,21 @@
     <tabs>standard-Incident</tabs>
     <tabs>standard-Problem</tabs>
     <tabs>standard-ChangeRequest</tabs>
+    <tabs>Candidate__c</tabs>
+    <tabs>Job_Position__c</tabs>
+    <tabs>Job_Application__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>LightningService_UtilityBar</utilityBar>
     <workspaceConfig>
+        <mappings>
+            <tab>Candidate__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Job_Application__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Job_Position__c</tab>
+        </mappings>
         <mappings>
             <tab>standard-Account</tab>
         </mappings>

@@ -1,0 +1,67 @@
+{
+  "type" : "sfdc_cms__view",
+  "title" : "Admin",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"a9baf2a9-7a28-411f-8c94-3e0f71f68c8b\",\"columns\":[{\"UUID\":\"12fd5d10-766c-4d5f-a9b0-5e342233aa49\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "children" : [ {
+              "attributes" : { },
+              "definition" : "c:recruitmentAdminDashboard",
+              "id" : "f33b339b-ea48-4205-8708-3c2568d7be09",
+              "type" : "component"
+            } ],
+            "id" : "12fd5d10-766c-4d5f-a9b0-5e342233aa49",
+            "name" : "col1",
+            "title" : "Column 1",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "a9baf2a9-7a28-411f-8c94-3e0f71f68c8b",
+          "type" : "component"
+        } ],
+        "id" : "ca25a992-71d2-4d9b-a6fa-71fdca27bbbf",
+        "name" : "content",
+        "title" : "Content",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "customHeadTags" : "",
+            "description" : "",
+            "pageTitle" : "Admin Dashboard",
+            "recordId" : "{!recordId}"
+          },
+          "definition" : "community_builder:seoAssistant",
+          "id" : "aa4cb938-7299-4b94-8a4c-31dad7af03d4",
+          "type" : "component"
+        } ],
+        "id" : "dc8cfed2-c73f-48e4-a89e-0af70adde8b5",
+        "name" : "sfdcHiddenRegion",
+        "title" : "sfdcHiddenRegion",
+        "type" : "region"
+      } ],
+      "definition" : "community_layout:sldsFlexibleLayout",
+      "id" : "201e93b0-2da5-45e2-ab8c-9a3413cb8f83",
+      "type" : "component"
+    },
+    "dataProviders" : [ ],
+    "themeLayoutType" : "Inner",
+    "viewType" : "custom-admin"
+  },
+  "urlName" : "admin"
+}

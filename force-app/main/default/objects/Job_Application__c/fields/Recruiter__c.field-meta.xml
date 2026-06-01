@@ -5,7 +5,7 @@
     <externalId>false</externalId>
     <label>Recruiter</label>
     <referenceTo>User</referenceTo>
-    <relationshipName>Job_Applications_Recruiter</relationshipName>
+    <relationshipName>Job_Applications_Recruiter_RMS</relationshipName>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

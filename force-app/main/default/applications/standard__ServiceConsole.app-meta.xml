@@ -181,7 +181,19 @@
     <tabs>standard-Case</tabs>
     <tabs>standard-Opportunity</tabs>
     <tabs>standard-Lead</tabs>
+    <tabs>Candidate__c</tabs>
+    <tabs>Job_Position__c</tabs>
+    <tabs>Job_Application__c</tabs>
     <workspaceConfig>
+        <mappings>
+            <tab>Candidate__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Job_Application__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Job_Position__c</tab>
+        </mappings>
         <mappings>
             <tab>standard-Account</tab>
         </mappings>

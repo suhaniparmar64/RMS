@@ -1,0 +1,12 @@
+{
+  "type" : "sfdc_cms__route",
+  "title" : "Admin",
+  "contentBody" : {
+    "activeViewId" : "admin",
+    "configurationTags" : [ ],
+    "pageAccess" : "UseParent",
+    "routeType" : "custom-admin",
+    "urlPrefix" : "admin"
+  },
+  "urlName" : "admin"
+}

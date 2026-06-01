@@ -1,6 +1,6 @@
 trigger JobApplicationEventTrigger on Job_Application_Event__e (after insert) {
     List<String> emails = new List<String>();
-    List<String> jobCodes = new List<String>();
+    List<String> jobCodes = new List<String>(); // Will carry Job Name or Job ID
     
     for (Job_Application_Event__e event : Trigger.new) {
         if (String.isNotBlank(event.Candidate_Email__c)) {
@@ -19,11 +19,11 @@ trigger JobApplicationEventTrigger on Job_Application_Event__e (after insert) {
         }
     }
     
-    // 2. Query Job Positions (by Job_Code__c or Id)
+    // 2. Query Job Positions (by Name or Id)
     Map<String, Job_Position__c> codeToJobMap = new Map<String, Job_Position__c>();
     if (!jobCodes.isEmpty()) {
-        for (Job_Position__c j : [SELECT Id, Job_Code__c, Name FROM Job_Position__c WHERE Job_Code__c IN :jobCodes OR Id IN :jobCodes]) {
-            codeToJobMap.put(j.Job_Code__c, j);
+        for (Job_Position__c j : [SELECT Id, Name FROM Job_Position__c WHERE Name IN :jobCodes OR Id IN :jobCodes]) {
+            codeToJobMap.put(j.Name, j);
             codeToJobMap.put(j.Id, j);
         }
     }
@@ -77,7 +77,7 @@ trigger JobApplicationEventTrigger on Job_Application_Event__e (after insert) {
             newApp.Job_Position__c = job.Id;
             newApp.Applied_Date__c = System.today();
             newApp.Application_Status__c = 'Applied';
-            newApp.Selected_for_Interview__c = false;
+    
             
             newApps.add(newApp);
         }
@@ -86,8 +86,7 @@ trigger JobApplicationEventTrigger on Job_Application_Event__e (after insert) {
     if (!newApps.isEmpty()) {
         insert newApps;
         
-        // 5. Asynchronously (or synchronously here) calculate match score for each application
-        // To avoid governor limits, we call our calculate method for each newly created application
+        // 5. Asynchronously calculate match score for each application
         for (Job_Application__c app : newApps) {
             RecruitmentPortalAPI.calculateMatchScore(app.Id);
         }

@@ -47,6 +47,13 @@
             <desktopEnabled>true</desktopEnabled>
             <mobileEnabled>false</mobileEnabled>
         </notificationChannels>
+        <notificationType>cc_export_success</notificationType>
+    </notificationTypeSettings>
+    <notificationTypeSettings>
+        <notificationChannels>
+            <desktopEnabled>true</desktopEnabled>
+            <mobileEnabled>false</mobileEnabled>
+        </notificationChannels>
         <notificationType>cdp_data_share_notif_type</notificationType>
     </notificationTypeSettings>
     <notificationTypeSettings>
